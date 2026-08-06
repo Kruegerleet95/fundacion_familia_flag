@@ -1,0 +1,355 @@
+/* 1. VARIABLES GLOBALES Y RESETEO */
+:root {
+   
+    --color-primario: #000000; /* Fondo negro como tu logo */
+    --color-secundario: #C8102E; /* Rojo vibrante extraído del logo */
+    --color-acento: #D99C2A; /* Dorado extraído del logo */
+    --color-fondo: #F4F4F9; /* Fondo general de la página */
+    --color-texto: #333333;
+    --fuente-principal: 'Segoe UI', system-ui, sans-serif;
+}
+
+ html {
+    	  scroll-behavior: smooth;
+     	 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    line-height: 1.6;
+}
+
+/* 2. ESTILOS COMUNES PARA LAS SECCIONES */
+section, header, footer {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+/* 3. SECCIÓN 1: INICIO (HERO) */
+#inicio {
+   /* Aquí aplicamos la técnica de la doble capa: Primero el cristal oscuro, luego la foto */
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.75), /* Negro con 75% de transparencia */
+        rgba(0, 0, 0, 0.75)
+    ), url('campo.jpg'); 
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    color: white;
+    padding: 8rem 2rem; /* Aumenté un poco el espacio para que se vea más el campo */
+    
+    /* Usamos Flexbox para centrar perfectamente el logo y el texto */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#inicio h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+#inicio p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+/* ESTILO PARA BOTONES Y ENLACES */
+a, button {
+    background-color: var(--color-secundario);
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+a:hover, button:hover {
+    background-color: #d65a3d; /* Un naranja más oscuro al pasar el mouse */
+}
+
+/* 4. SECCIÓN 3: EQUIPOS (USANDO FLEXBOX) */
+.contenedor-ramas {
+    display: flex;
+    justify-content: center;
+    gap: 2rem; /* Espacio entre las tarjetas */
+    margin-top: 2rem;
+    flex-wrap: wrap; /* Permite que se acomoden hacia abajo en celulares */
+}
+
+.rama-equipo {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Una sombra sutil */
+    width: 300px;
+    text-align: left;
+}
+
+.rama-equipo h3 {
+    color: var(--color-primario);
+    border-bottom: 2px solid var(--color-secundario);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.rama-equipo ul {
+    list-style-type: none; /* Quita los puntos feos de la lista */
+}
+
+.rama-equipo li {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+/* 5. FOOTER */
+footer {
+    background-color: var(--color-primario);
+    color: white;
+    padding: 2rem;
+}
+
+/* ESTILOS DEL LOGO */
+.logo {
+    width: 250px; /* Controlamos el tamaño para que no ocupe toda la pantalla */
+    height: auto; /* Mantiene la proporción */
+    margin-bottom: 1.5rem;
+    border-radius: 50%; /* Opcional: si quieres que tenga forma circular */
+}
+
+/* ESTILOS DE EQUIPOS: EFECTO GLASSMORPHISM Y DESTELLO */
+.rama-equipo ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.rama-equipo li {
+    position: relative;
+    overflow: hidden; /* Vital: Corta el destello y el zoom para que no se salgan de la caja */
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* 1. LA CAPA DE FONDO (Aquí irán los logos) */
+/* Usamos ::before para crear una capa fantasma detrás del texto */
+.rama-equipo li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    transition: transform 0.8s ease; /* Esta línea hace el zoom lento */
+}
+
+/* Asignamos los fondos (cambia estos nombres por tus archivos reales) */
+.equipo-gamitos::before { background-image: url('logo-gamitos.png'); }
+.equipo-furia::before { background-image: url('logo-furia.png'); background-color: #000; }
+.equipo-manos::before { background-image: url('logo-manos.png'); }
+.equipo-esloquehay::before { background-image: url('logo-esloquehay.png'); }
+.equipo-dodos::before { background-image: url('logo-dodos.jpg'); background-color: #6A89A7; }
+.equipo-morondongos::before { background-image: url('logo-morondongos.jpg'); background-color: #E5AA70; }
+
+/* 2. EL EFECTO CRISTAL (Glassmorphism sobre el texto) */
+.rama-equipo li span {
+    position: relative;
+    z-index: 1; /* Esto pone el cristal por encima del logo */
+    display: block;
+    padding: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: white; 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.9); /* Sombra fuerte para que se lea sobre cualquier logo */
+    
+    /* El truco del cristal */
+    background: rgba(255, 255, 255, 0.1); /* Blanco casi transparente */
+    backdrop-filter: blur(5px); /* Desenfoca el logo que está debajo */
+    -webkit-backdrop-filter: blur(5px); /* Soporte para iPhones/Safari */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borde que simula el grosor del vidrio */
+}
+
+/* 3. EL DESTELLO DE LUZ (Capa invisible esperando el hover) */
+.rama-equipo li::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%; /* Lo escondemos afuera de la caja a la izquierda */
+    width: 50%;
+    height: 100%;
+    /* Creamos el rayo de luz blanca degradada */
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg); /* Inclinamos la luz para darle velocidad visual */
+    z-index: 2; /* Por encima del texto y el cristal */
+}
+
+/* 4. LA INTERACCIÓN (¿Qué pasa al poner el mouse?) */
+.rama-equipo li:hover::before {
+    transform: scale(1.2); /* Efecto de zoom in lento a la foto */
+}
+
+.rama-equipo li:hover::after {
+    animation: barrido-luz 0.7s ease-in-out forwards; /* Dispara el destello */
+}
+
+/* 5. CREACIÓN DE LA ANIMACIÓN DEL DESTELLO */
+@keyframes barrido-luz {
+    0% { left: -100%; }
+    100% { left: 200%; } /* Atraviesa toda la caja hacia la derecha y desaparece */
+}
+
+
+/* ESTILO ESPECÍFICO PARA EL BOTÓN DE WHATSAPP */
+.boton-whatsapp {
+    background-color: #25D366; 
+    color: white;
+    font-size: 1.1rem;
+    padding: 1rem 2.5rem;
+    border-radius: 50px; 
+    
+    /* ESTAS DOS LÍNEAS SOLUCIONAN LA SOBREPOSICIÓN */
+    display: inline-block;
+    margin-top: 1.5rem; 
+}
+
+
+/* AJUSTE PARA LAS LISTAS (Soluciona el problema de los bullets) */
+#academia ul {
+    text-align: left; /* Regresamos el texto a la izquierda para que se lea bien */
+    max-width: 600px; /* Le damos un ancho máximo para que no se estire demasiado */
+    margin: 1.5rem auto; /* El 'auto' a los lados centra la caja completa */
+    padding-left: 2rem;
+}
+
+/* 6. DISEÑO RESPONSIVO (Adaptación a Celulares y Tablets) */
+@media (max-width: 768px) {
+    
+    /* Achicamos los textos principales para que no saturen la pantalla pequeña */
+    #inicio h1 {
+        font-size: 2.2rem;
+    }
+    
+    #inicio p {
+        font-size: 1rem;
+    }
+    
+    /* Reducimos el tamaño del logo para móviles */
+    .logo {
+        width: 180px; 
+    }
+
+    /* Hacemos que las tarjetas de los equipos tomen todo el ancho de la pantalla */
+    .rama-equipo {
+        width: 100%; 
+        margin-bottom: 1rem;
+    }
+
+    /* Reducimos los espacios (padding) a los lados de todas las secciones */
+    section, header, footer {
+        padding: 3rem 1rem;
+    }
+}
+
+/* 7. BOTÓN FLOTANTE (VOLVER ARRIBA) - VERSIÓN MEJORADA */
+#boton-arriba {
+    /* 1. CENTRADO PERFECTO DE LA FLECHA CON FLEXBOX */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+    
+    background-color: var(--color-secundario);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    
+    /* Mejoramos la tipografía de la flecha */
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    
+    /* 2. PREPARACIÓN PARA LA ANIMACIÓN SUAVE */
+    /* Eliminamos "display: none" y usamos Opacidad y Visibilidad */
+    opacity: 0;
+    visibility: hidden;
+    
+    /* Le decimos al navegador que anime cualquier cambio en la opacidad */
+    transition: opacity 0.5s ease, visibility 0.5s, transform 0.3s, background-color 0.3s;
+}
+
+#boton-arriba:hover {
+    background-color: #a00b24;
+    transform: translateY(-5px); /* Salto visual al pasar el mouse */
+}
+
+/* 3. CLASE DINÁMICA DE ESTADO (Esta la controlará JavaScript) */
+#boton-arriba.mostrar {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 8. GALERÍA ÉPICA (USANDO CSS GRID) */
+#galeria {
+    background-color: var(--color-primario); /* Fondo negro para que resalten las fotos */
+    color: white;
+}
+
+#galeria h2 {
+    color: var(--color-acento); /* Tu color dorado del logo */
+    margin-bottom: 1rem;
+}
+
+.contenedor-galeria {
+    display: grid;
+    /* La línea mágica de Grid: Crea columnas automáticas que no bajen de 250px */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px; /* Espacio entre las fotos */
+    margin-top: 2rem;
+    padding: 0 1rem;
+}
+
+.foto-galeria {
+    position: relative;
+    overflow: hidden; /* CRUCIAL: Esconde lo que se salga de la caja */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    background-color: #333; /* Color de fondo por si la imagen tarda en cargar */
+}
+
+.foto-galeria img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover; /* Recorta la foto sin deformarla */
+    display: block;
+    transition: transform 0.5s ease; /* Prepara la animación */
+}
+
+/* El efecto épico al pasar el mouse */
+.foto-galeria:hover img {
+    transform: scale(1.1); /* Hace un zoom del 10% hacia adentro */
+}
